@@ -1,9 +1,9 @@
 <template>
   <form @submit.prevent="submitLocation()">
     <label for="location-input">Enter a location</label>
-    <input type="text" name="location-input" id="location-input" placeholder="City" v-model="city" />
-    <input type="text" name="location-input" id="location-input" placeholder="Country" v-model="country" />
-    <input type="submit" value="Submit" class="submit-button"/>
+    <input type="text" name="location-city-input" id="location-input" placeholder="City" required v-model="city" />
+    <input type="text" name="location-country-input" id="location-input" placeholder="Country" required v-model="country" />
+    <input type="submit" value="Submit" class="submit-button" />
   </form>
 </template>
 
@@ -21,14 +21,14 @@ export default {
   },
   methods: {
     async submitLocation() {
-      console.log('click');
-      const response = await fetch(`https://geocode.xyz/${this.city},${this.country}?json=1`)
-      const data = await response.json()
-      this.locationData =  data
+      // console.log('click');
+      const response = await fetch(`https://geocode.xyz/${this.city},${this.country}?json=1`);
+      const data = await response.json();
+      this.locationData = data;
       this.broadcastData();
     },
     broadcastData: function() {
-      eventBus.$emit('location-data', this.locationData);
+      eventBus.$emit('location-data', this.locationData, this.city);
     },
   },
 };
