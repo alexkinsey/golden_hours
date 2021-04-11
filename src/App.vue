@@ -8,6 +8,7 @@
       </p>
       <location-input />
       <golden-hour-output v-if="goldenHourResult" :goldenHourResult="goldenHourResult" :locationName="locationName" />
+      <h3 v-if="errorCode">{{ errorCode }}</h3>
     </div>
   </div>
 </template>
@@ -26,6 +27,7 @@ export default {
       locationName: null,
       goldenHourResult: null,
       backgroundTheme: 0,
+      errorCode: 0,
     };
   },
   components: {
@@ -35,10 +37,16 @@ export default {
   async mounted() {
     eventBus.$on('location-data', (locationData, city) => {
       // console.log('broadcast response');
-      this.latitude = locationData.latt;
-      this.longitude = locationData.longt;
-      this.locationName = city;
-      this.getSunriseSunset();
+      if (locationData['error']) {
+        this.goldenHourResult = null;
+        this.errorCode = locationData.error.description;
+      } else {
+        this.errorCode = 0;
+        this.latitude = locationData.latt;
+        this.longitude = locationData.longt;
+        this.locationName = city;
+        this.getSunriseSunset();
+      }
     });
   },
   methods: {
@@ -72,9 +80,14 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  height: 115%;
+  /* background-attachment: fixed; */
+  height: 100%;
   width: 100%;
-  position: absolute;
+  /* position: absolute; */
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   left: 0;
   top: 0;
   color: white;
@@ -114,7 +127,11 @@ select:focus {
 .main-body {
   width: 80%;
   max-width: 65rem;
-  margin: auto;
+  margin: 0 auto auto auto;
+  padding: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: .25s;
 }
 .quote {
   opacity: 0.75;
