@@ -1,11 +1,15 @@
 <template>
   <div id="app" :class="backgroundTheme == 0 ? 'default' : backgroundTheme == 1 ? 'sunrise' : backgroundTheme == 2 ? 'day' : backgroundTheme == 3 ? 'sunset' : 'night'">
     <div class="main-body">
-      <h1>Golden Hours</h1>
-      <p class="quote">
-        The Golden Hour (sometimes referred to as the Magic Hour) is often defined as the first and last hour of sunlight in the day when the special quality of light yields particularly beautiful
-        photographs. The effect is particularly beautiful 25 minutes after sunrise and before sunset.
-      </p>
+      <div class="header">
+        <h1>Golden Hours</h1>
+        <p class="quote">
+          The Golden Hour (sometimes referred to as the Magic Hour) is often defined as the first and last hour of sunlight in the day when the special quality of light yields particularly beautiful
+          photographs. The effect is particularly beautiful 25 minutes after sunrise and before sunset.
+        </p>
+        <p class="credits">Location data provided by <a href="https://geocode.xyz" target="_blank">geocode.xyz</a></p>
+        <p class="credits">Time data provided by <a href="https://ipgeolocation.io" target="_blank">ipgeolocation.io</a></p>
+      </div>
       <location-input />
       <golden-hour-output v-if="goldenHourResult" :goldenHourResult="goldenHourResult" :locationName="locationName" />
       <h3 v-if="errorCode">{{ errorCode }}</h3>
@@ -124,8 +128,8 @@ input {
   background-attachment: fixed;
 }
 .sunset {
-  background: rgb(17,16,54);
-background: linear-gradient(180deg, rgba(17,16,54,1) 0%, rgba(22,75,130,1) 38%, rgba(136,58,74,1) 52%, rgba(170,69,33,1) 64%, rgba(226,94,21,1) 83%, rgba(221,161,16,1) 100%);
+  background: rgb(17, 16, 54);
+  background: linear-gradient(180deg, rgba(17, 16, 54, 1) 0%, rgba(22, 75, 130, 1) 38%, rgba(136, 58, 74, 1) 52%, rgba(170, 69, 33, 1) 64%, rgba(226, 94, 21, 1) 83%, rgba(221, 161, 16, 1) 100%);
   background-attachment: fixed;
 }
 .night {
@@ -147,8 +151,19 @@ background: linear-gradient(180deg, rgba(17,16,54,1) 0%, rgba(22,75,130,1) 38%, 
   overflow-x: hidden;
   transition: 0.25s;
 }
+
+.header {
+  margin-bottom: 1rem;
+}
 .quote {
   opacity: 0.75;
   font-style: italic;
+}
+.credits {
+  opacity: 0.5;
+  margin: 0;
+}
+.credits a{
+  color: aqua;
 }
 </style>
