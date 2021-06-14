@@ -75,7 +75,7 @@ export default {
 }
 .info-box-container {
   /* background: rgba(0, 0, 0, 0.199); */
-  padding: 1rem 0 2rem 0;
+  /* padding: 1rem 0 2rem 0; */
   margin-top: 1rem;
   min-width: 17rem;
 }
@@ -83,12 +83,10 @@ export default {
   border-radius: 1rem;
   background-color: rgba(0, 0, 0, 0.7);
   /* width: 15rem; */
-  width: 90%;
+  /* width: 90%; */
   min-width: 15rem;
   max-width: 25rem;
-  margin: 1rem;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 1rem auto;
   display: flex;
   justify-content: space-between;
   padding: 1rem;

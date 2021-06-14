@@ -9,6 +9,7 @@
       <location-input />
       <golden-hour-output v-if="goldenHourResult" :goldenHourResult="goldenHourResult" :locationName="locationName" />
       <h3 v-if="errorCode">{{ errorCode }}</h3>
+      <h3 v-if="errorCode">Try again!</h3>
     </div>
   </div>
 </template>
@@ -39,7 +40,11 @@ export default {
       // console.log('broadcast response');
       if (locationData['error']) {
         this.goldenHourResult = null;
-        this.errorCode = locationData.error.description;
+        if (locationData.error.description) {
+          this.errorCode = locationData.error.description;
+        } else {
+          this.errorCode = locationData.error.message;
+        }
       } else {
         this.errorCode = 0;
         this.latitude = locationData.latt;
@@ -91,6 +96,8 @@ export default {
   left: 0;
   top: 0;
   color: white;
+  font-size: 16px;
+  background-color: black;
 }
 
 button:focus,
@@ -100,9 +107,15 @@ select:focus {
   outline: none;
 }
 
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 .sunrise {
-  background: rgb(255, 194, 0);
-  background: linear-gradient(0deg, rgba(255, 194, 0, 1) 0%, rgba(214, 136, 4, 1) 13%, rgba(6, 55, 163, 1) 40%, rgba(6, 0, 27, 1) 100%);
+  background: rgb(3, 7, 34);
+  background: linear-gradient(180deg, rgba(3, 7, 34, 1) 0%, rgba(6, 73, 144, 1) 40%, rgba(53, 116, 167, 1) 60%, rgba(253, 57, 29, 1) 83%, rgb(252, 188, 69) 100%);
   background-attachment: fixed;
 }
 .day {
@@ -111,8 +124,8 @@ select:focus {
   background-attachment: fixed;
 }
 .sunset {
-  background: rgb(255, 194, 0);
-  background: linear-gradient(0deg, rgba(255, 194, 0, 1) 0%, rgba(214, 83, 4, 1) 18%, rgba(7, 47, 134, 1) 61%, rgba(6, 0, 27, 1) 100%);
+  background: rgb(17,16,54);
+background: linear-gradient(180deg, rgba(17,16,54,1) 0%, rgba(22,75,130,1) 38%, rgba(136,58,74,1) 52%, rgba(170,69,33,1) 64%, rgba(226,94,21,1) 83%, rgba(221,161,16,1) 100%);
   background-attachment: fixed;
 }
 .night {
@@ -125,13 +138,14 @@ select:focus {
 }
 
 .main-body {
-  width: 80%;
+  width: clamp(90%, 80%, 65rem);
   max-width: 65rem;
   margin: 0 auto auto auto;
   padding: 1rem;
+  /* padding: env(safe-area-inset-bottom); */
   overflow-y: auto;
   overflow-x: hidden;
-  transition: .25s;
+  transition: 0.25s;
 }
 .quote {
   opacity: 0.75;
