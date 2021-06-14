@@ -142,7 +142,7 @@ background: linear-gradient(180deg, rgba(17,16,54,1) 0%, rgba(22,75,130,1) 38%, 
   max-width: 65rem;
   margin: 0 auto auto auto;
   padding: 1rem;
-  /* padding: env(safe-area-inset-bottom); */
+  padding-bottom: env(safe-area-inset-bottom);
   overflow-y: auto;
   overflow-x: hidden;
   transition: 0.25s;
